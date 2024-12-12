@@ -8,6 +8,14 @@ public class MyString {
         System.out.println(countChar(hello, 'l'));
         System.out.println(countChar(hello, 'z'));
         System.out.println(spacedString(hello));
+        System.out.println(subsetOf("sap","space"));  
+        System.out.println(subsetOf("spa","space") );
+        System.out.println(subsetOf("pass","space"));
+        System.out.println( subsetOf("c","space") );
+        System.out.println(spacedString("silent"));
+        System.out.println(randomStringOfLetters(3));
+        System.out.println(remove("meet","committee"));
+        System.out.println(insertRandomly('k', "hello"));
         //// Put your other tests here.
     }
 
@@ -21,7 +29,13 @@ public class MyString {
      */
     public static int countChar(String str, char ch) {
         //// Replace the following statement with your code
-        return 0;
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ch) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /** Returns true if str1 is a subset string str2, false otherwise
@@ -36,8 +50,13 @@ public class MyString {
      * @return true is str1 is a subset of str2, false otherwise
      */
     public static boolean subsetOf(String str1, String str2) {
-         //// Replace the following statement with your code
-        return false;
+        for (int i = 0; i < str1.length(); i++) {
+            char ch = str1.charAt(i);
+            if (countChar(str2, ch) < countChar(str1, ch)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /** Returns a string which is the same as the given string, with a space
@@ -50,7 +69,14 @@ public class MyString {
      */
     public static String spacedString(String str) {
         //// Replace the following statement with your code
-        return null;
+        if (str == null || str.isEmpty()) {
+            return "";
+        }
+        String spaced = "" + str.charAt(0);
+        for (int i = 1; i < str.length(); i++) {
+            spaced += " " + str.charAt(i);
+        }
+        return spaced;
     }
   
     /**
@@ -64,8 +90,12 @@ public class MyString {
      * @return a randomly generated string, consisting of 'n' lowercase letters
      */
     public static String randomStringOfLetters(int n) {
-        //// Replace the following statement with your code
-        return null;
+        String randomStr = "";
+        for (int i = 0; i < n; i++) {
+            char randomChar = (char) ('a' + (int) (Math.random() * 26));
+            randomStr += randomChar;
+        }
+        return randomStr;
     }
 
     /**
@@ -78,8 +108,15 @@ public class MyString {
      * @return a string consisting of str1 minus all the characters of str2
      */
     public static String remove(String str1, String str2) {
-       //// Replace the following statement with your code
-        return null;
+        String result = str1;
+        for (int i = 0; i < str2.length(); i++) {
+            char ch = str2.charAt(i);
+            int index = result.indexOf(ch);
+            if (index != -1) {
+                result = result.substring(0, index) + result.substring(index + 1);
+            }
+        }
+        return result;
     }
 
     /**
@@ -91,10 +128,7 @@ public class MyString {
      * @return a string consisting of str with ch inserted somewhere
      */
     public static String insertRandomly(char ch, String str) {
-         // Generate a random index between 0 and str.length()
-         int randomIndex = (int) (Math.random() * (str.length() + 1));
-         // Insert the character at the random index
-         String result = str.substring(0, randomIndex) + ch + str.substring(randomIndex);
-         return result;
+        int index = (int) (Math.random() * (str.length() + 1));
+        return str.substring(0, index) + ch + str.substring(index);
     }    
 }
